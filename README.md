@@ -1,4 +1,3 @@
-~~~text
 Simple script to show the use of the ONTAP REST API when authenticating
 with certificate based authentication.
 
@@ -23,4 +22,4 @@ Other requirements:
 2. The netapp-ontap Python package as described at:
    https://pypi.org/project/netapp-ontap/
 3. ONTAP 9.6 or higher.
-~~~text
+
