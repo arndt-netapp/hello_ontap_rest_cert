@@ -4,9 +4,11 @@ with certificate based authentication.
 Example of certificate creation and required ONTAP configuration:
 1. Create the certificate for the "cert_user" account.  This account name,
    as well as the key and pem filenames, can be changed as required.
+~~~text
    linux$ openssl req -x509 -nodes -days 1095 -newkey rsa:2048 \
           -keyout restcert.key -out restcert.pem \
           -subj "/C=US/ST=NC/L=RTP/O=NetApp/CN=cert_user"
+~~~
 2. Install the restcert.pem file into the cluster or svm:
    ontap::> security certificate install -type client-ca -vserver {clus|svm}
 3. Enable SSL client based authentication for the cluster or svm:
