@@ -10,14 +10,20 @@ Example of certificate creation and required ONTAP configuration:
           -subj "/C=US/ST=NC/L=RTP/O=NetApp/CN=cert_user"
 ~~~
 2. Install the restcert.pem file into the cluster or svm:
+~~~text
    ontap::> security certificate install -type client-ca -vserver {clus|svm}
+~~~
 3. Enable SSL client based authentication for the cluster or svm:
+~~~text
    ontap::> security ssl modify -vserver {clus|svm} -client-enabled true
+~~~
 4. Create the account in ONTAP for this user, matching the username given in
    step 1 above.  Note that the application is "http" for the REST API, and
    you can use a different role as required to meet your needs.
+~~~text
    ::> security login create -user-or-group-name cert_user -application http \
        -authentication-method cert -role {admin|vsadmin} -vserver {clus|svm}
+~~~
 
 Other requirements:
 1. Python 3.5 or higher.
