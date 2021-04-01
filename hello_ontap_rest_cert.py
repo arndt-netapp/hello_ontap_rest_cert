@@ -24,6 +24,17 @@
 # 2. The netapp-ontap Python package as described at:
 #    https://pypi.org/project/netapp-ontap/
 # 3. ONTAP 9.6 or higher.
+#
+# Notes:
+# 1. The /api/cluster REST API call works with the built in "admin" and
+#    "vsadmin" roles, in the cluster and vserver context, respectively.
+#    Creating a custom RBAC role in a vserver context with the /api/cluster
+#    REST API currently does not work due to ONTAP bug # 1388040. 
+
+# Define the ONTAP endpoint and path to local certificate files.
+cluster = "ontapsim1"
+pemfile = "../certs/restcert.pem"
+keyfile = "../certs/restcert.key"
 
 # Import the required netap_ontap modules.
 from netapp_ontap import HostConnection, NetAppRestError, config, utils
@@ -35,11 +46,6 @@ from netapp_ontap.resources import Cluster
 #utils.DEBUG = 1
 #utils.LOG_ALL_API_CALLS = 1
 
-# Define the ONTAP endpoint and local certificate files.
-cluster = "ontapsim1"
-pemfile = "restcert.pem"
-keyfile = "restcert.key"
-
 # Setup the REST API connection to ONTAP.
 # Using verify=False to ignore that we have self-signed SSL certificates.
 config.CONNECTION = HostConnection(
@@ -47,7 +53,7 @@ config.CONNECTION = HostConnection(
 )
 
 # Get the cluster version from the /api/cluster REST API call to show that
-# out certificate based authentication is working. 
+# our certificate based authentication is working. 
 print("Connecting to host " + cluster)
 try:
     clus = Cluster()
