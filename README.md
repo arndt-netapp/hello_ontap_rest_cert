@@ -31,3 +31,10 @@ Other requirements:
    https://pypi.org/project/netapp-ontap/
 3. ONTAP 9.6 or higher.
 
+Notes:
+1. If using a custom role (other than admin or vsadmin), the custom role must
+   must have access to the rest web service of the vserver:
+~~~text
+vserver services web access create -vserver {svm} -name rest -role {role}
+~~~
+
